@@ -41,9 +41,10 @@ def main():
         cwd=ROOT_DIR
     )
 
-    print("[2/3] Starting FastAPI Autonomous QA Backend on http://127.0.0.1:8000...")
+    backend_port = os.environ.get("BACKEND_PORT", "8000")
+    print(f"[2/3] Starting FastAPI Autonomous QA Backend on http://127.0.0.1:{backend_port}...")
     backend_proc = subprocess.Popen(
-        [VENV_PYTHON, "-m", "uvicorn", "backend.app.main:app", "--host", "127.0.0.1", "--port", "8000"],
+        [VENV_PYTHON, "-m", "uvicorn", "backend.app.main:app", "--host", "127.0.0.1", "--port", backend_port],
         cwd=ROOT_DIR
     )
 
@@ -51,13 +52,14 @@ def main():
     npm_cmd = "npm.cmd" if sys.platform == "win32" else "npm"
     frontend_proc = subprocess.Popen(
         [npm_cmd, "run", "dev"],
-        cwd=os.path.join(ROOT_DIR, "frontend")
+        cwd=os.path.join(ROOT_DIR, "frontend"),
+        env=dict(os.environ, BACKEND_PORT=backend_port)
     )
 
     print("\n" + "*" * 70)
     print("  ALL SERVICES RUNNING SUCCESSFULLY!")
     print("  -> Frontend Console:    http://localhost:5173")
-    print("  -> Backend API & Docs:  http://127.0.0.1:8000/docs")
+    print(f"  -> Backend API & Docs:  http://127.0.0.1:{backend_port}/docs")
     print("  -> Sample App Target:   http://127.0.0.1:5001")
     print("  Press Ctrl+C to terminate all services.")
     print("*" * 70 + "\n")

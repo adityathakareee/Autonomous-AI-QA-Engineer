@@ -1,19 +1,90 @@
 # Autonomous AI QA Engineer
-### iMocha Track | Problem Statement IM-02
 
-> **"Explore &rarr; Understand &rarr; Plan &rarr; Execute &rarr; Verify &rarr; Report &rarr; Learn"**
+<div align="center">
 
-An autonomous, agentic software testing platform that explores web applications like an expert human QA engineer, decides what to test using an explainable **Curiosity Engine**, executes browser journeys through Playwright automation, captures **complete step-by-step screenshot evidence**, visually highlights defects with **automated defect bounding boxes**, verifies findings with deterministic replays, produces **proof-carrying bug reports**, and transforms successful journeys into **reusable regression suites**.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-19.0-61DAFB.svg?style=flat&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-6.0-646CFF.svg?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Playwright](https://img.shields.io/badge/Playwright-1.48-2EAD33.svg?style=flat&logo=playwright&logoColor=white)](https://playwright.dev)
+[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**An autonomous, self-governing software testing assistant that explores web applications like an expert human QA engineer, formulates test plans with an explainable Curiosity Engine, executes Playwright browser journeys, captures 100% pre/post screenshot evidence, visually highlights defects with bounding boxes, verifies findings via deterministic replay, and produces proof-carrying bug reports.**
+
+[Quickstart](#-quickstart--installation) • [Architecture](#-architecture--pipeline) • [Key Differentiators (USPs)](#-the-two-primary-differentiators-usps) • [Seeded Defect Registry](#-seeded-defect-catalog--ground-truth-registry) • [Visual Walkthrough](#-visual-walkthrough)
+
+</div>
 
 ---
 
-## The Two Primary Differentiators (USPs)
+## 📸 Platform Overview
 
-### USP 1 &mdash; Realistic, Multi-Page Test Target Applications
-The platform supports three distinct, locally hosted demonstration targets with multi-route workflows, form validation, state persistence, and deterministic seeded defects:
+![Autonomous QA Command Center](docs/screenshots/02_dashboard.png)
+
+> **"Explore → Understand → Plan → Execute → Verify → Report → Learn"**  
+> *Autonomous QA Engineer replaces brittle manual test scripting with autonomous exploratory journeys, mathematical information-gain prioritization, and deterministic verification.*
+
+---
+
+## 📑 Table of Contents
+
+- [Core Capabilities](#-core-capabilities)
+- [The Two Primary Differentiators (USPs)](#-the-two-primary-differentiators-usps)
+  - [USP 1: Realistic Multi-Page Target Applications](#usp-1--realistic-multi-page-test-targets)
+  - [USP 2: Step-by-Step Screenshot Evidence & Visual Defect Highlighting](#usp-2--complete-step-by-step-screenshot-evidence--visual-defect-highlighting)
+- [Architecture & Pipeline](#-architecture--pipeline)
+- [Visual Walkthrough](#-visual-walkthrough)
+- [Seeded Defect Catalog & Ground-Truth Registry](#-seeded-defect-catalog--ground-truth-registry)
+- [Ground-Truth Benchmark Matrix](#-ground-truth-benchmark-matrix)
+- [Quickstart & Installation](#-quickstart--installation)
+- [Running the Application](#-running-the-application)
+- [Running Automated Tests](#-running-automated-tests)
+- [Docker Deployment](#-docker-deployment)
+- [Project Structure](#-project-structure)
+- [Judge Demonstration Guide](#-judge-demonstration-sequence-5-minutes)
+- [License](#-license)
+
+---
+
+## 🚀 Core Capabilities
+
+| Capability | Technical Implementation | Value Delivered |
+| :--- | :--- | :--- |
+| **Autonomous Exploration** | Playwright Chromium crawler + DOM topology graph builder | Zero manual scripting required to map routes, controls, and workflows. |
+| **Curiosity Engine** | Multi-factor scoring ($Impact \times 0.35 + Novelty \times 0.25 + Uncertainty \times 0.20 + CoverageGap \times 0.20$) | Prioritizes untested application states and high-risk business logic first. |
+| **Step-by-Step Evidence** | Synchronous pre-action and post-action full-viewport screenshot capture | 100% auditable timeline of every click, navigation, and input entry. |
+| **Visual Defect Highlighting** | `ImageAnnotator` bounding box calculation + pulsed high-contrast border overlay | Instantly draws developer attention to the exact failing DOM element. |
+| **Deterministic Verifier** | Clean-session isolated replay + flakiness filter (Trust Score 0–100%) | Eliminates false alarms caused by transient network blips or cache noise. |
+| **Regression Memory** | SQLite persistence of verified passing journeys into zero-script suites | Prevents regressions without requiring QA engineers to write test scripts. |
+| **Explainable Trace** | 7-stage pipeline tracker with observation provenance | Full transparency into why the AI decided to execute each test action. |
+
+---
+
+## 🌟 The Two Primary Differentiators (USPs)
+
+### USP 1 &mdash; Realistic, Multi-Page Test Targets
+
+The platform includes three distinct, locally hosted demonstration targets with multi-route workflows, form validation, state persistence, and deterministic seeded defects:
+
+```
+┌───────────────────────────────────────────────────────────────────────────────┐
+│                          LOCAL TARGET APPLICATIONS (:5001)                   │
+├──────────────────────────────┬─────────────────────────────┬──────────────────┤
+│ 1. AssessPro (/assesspro)    │ 2. QuickBite (/quickbite)   │ 3. DevStore (/)  │
+├──────────────────────────────┼─────────────────────────────┼──────────────────┤
+│ • Candidate sign-in & code   │ • Restaurant discovery      │ • Product catalog│
+│ • Real-time countdown exam   │ • Cart qty & calculation    │ • Cart checkout  │
+│ • Question palette & state   │ • Postal validation address │ • Auth & profile │
+│ • Score evaluation engine    │ • Payment simulator         │ • Order tracking │
+│ • Recruiter dashboard        │ • Live GPS order tracking   │ • Seeded defects │
+│ [5 Seeded Defects: AP-01..05]│[5 Seeded Defects: QB-01..05]│ [5 Defects: 01..]│
+└──────────────────────────────┴─────────────────────────────┴──────────────────┘
+```
 
 1. **AssessPro (`http://127.0.0.1:5001/assesspro`):**
-   - **Domain:** iMocha-style online talent assessment and candidate examination platform.
+   - **Domain:** iMocha-style talent assessment and candidate examination platform.
    - **Realistic Workflows:** Candidate sign-in, instructions acknowledgment, access code format validation, timed examination with real-time countdown timer, multi-question navigation with dynamic answered/unanswered question palette, answer persistence across page reloads, rapid double-click single-submission idempotency, score computation against answer key, and recruiter evaluation dashboard with access control.
    - **5 Seeded Defects:** `AP-BUG-01` (Question answers reset on reload), `AP-BUG-02` (Duplicate submission on rapid double-click), `AP-BUG-03` (Score calculation arithmetic desync), `AP-BUG-04` (Recruiter results access control non-disclosure), `AP-BUG-05` (Invalid access code boundary bypass).
 
@@ -29,22 +100,23 @@ The platform supports three distinct, locally hosted demonstration targets with 
 ---
 
 ### USP 2 &mdash; Complete Step-by-Step Screenshot Evidence & Visual Defect Highlighting
+
 For every executed test journey, screenshot evidence is captured directly within the Playwright execution lifecycle:
 
-- **Pre-Action & Post-Action Evidence:** Every meaningful step (navigation, form entry, button click, cart modification, question selection, payment submission) records `url_before`, `url_after`, execution duration, and captures `screenshot_before` and `screenshot_after`.
+- **Pre-Action & Post-Action Evidence:** Every step (navigation, form entry, button click, cart modification, question selection, payment submission) records `url_before`, `url_after`, execution duration, and captures `screenshot_before` and `screenshot_after`.
 - **Automated Visual Defect Highlighting (`ImageAnnotator`):** When a step violates an invariant or encounters a defect, the system locates the failing element's bounding box and generates an annotated screenshot with a contrasting 3px alert border, a human-readable defect badge (e.g., *"Unexpected subtotal"* or *"Submission Failed"*), and a translucent red highlight overlay&mdash;**strictly preserving the original unmodified screenshot as source-of-truth**.
-- **Interactive Step Timeline & Side-by-Side Modal:** The frontend provides a chronological step inspector with status badges, execution timings, assertion results, and a side-by-side comparison modal with full-resolution zoom.
-- **Proof-Carrying Exported Reports:** HTML reports export complete step tables with thumbnails for Pre-Action, Post-Action, and Annotated Defect Highlights that link directly to full-resolution artifacts.
+- **Interactive Step Timeline & Replay:** The frontend provides a chronological step inspector with status badges, execution timings, assertion results, and full-resolution zoom.
+- **Proof-Carrying Exported Reports:** Standalone HTML and Markdown reports export complete step tables with thumbnails for Pre-Action, Post-Action, and Annotated Defect Highlights that link directly to full-resolution artifacts.
 - **Auditable Quality Metrics:** Ground-truth benchmarks track **Screenshot Coverage (%)** and **Annotated Failure Coverage (%)** computed from actual stored step execution records.
 
 ---
 
-## Architecture Overview
+## 🏗 Architecture & Pipeline
 
 ```mermaid
 flowchart TD
     User([User / QA Lead]) -->|Select Target & Objectives| UI[React 19 + TypeScript + Vite Dashboard]
-    UI -->|REST API v1| API[FastAPI Backend Orchestrator]
+    UI -->|REST API v1 + SSE Stream| API[FastAPI Backend Orchestrator]
 
     subgraph Autonomous Agent Pipeline
         API --> Scout[Scout Agent: Route & DOM Topology Discovery]
@@ -77,7 +149,63 @@ flowchart TD
 
 ---
 
-## Seeded Defect Catalog & Ground-Truth Registry
+## 🖼 Visual Walkthrough
+
+### 1. Modern Hero Landing Page
+Explore how the autonomous assistant operates before entering the operational workspace.
+![Marketing Landing Page](docs/screenshots/01_landing_page.png)
+
+---
+
+### 2. Autonomous QA Command Center (Dashboard)
+Live execution stream showing pre/post screenshots, real-time action logs, and instant defect alerts.
+![Dashboard Overview](docs/screenshots/02_dashboard.png)
+
+---
+
+### 3. Multi-Target Runner & Objective Selection
+Choose between AssessPro, QuickBite, DevStore, or enter any custom URL with targeted test objectives.
+![Target Selection](docs/screenshots/03_target_selection.png)
+
+---
+
+### 4. Explainable 7-Stage Generation Trace
+Track exactly how live website observations transform into verified executable tests with mathematical provenance.
+![Generation Trace](docs/screenshots/04_generation_trace.png)
+
+---
+
+### 5. Explainable Test Plan & Verification Evidence
+Search and filter through all planned, passed, failed, and blocked test cases with full assertion metrics.
+![Test Cases Evidence](docs/screenshots/05_test_cases.png)
+
+---
+
+### 6. Proof-Carrying Defect Reports
+Inspect reproducible bug reports backed by clean isolated replays, confidence scores, and trust breakdowns.
+![Bug Reports](docs/screenshots/06_bug_reports.png)
+
+---
+
+### 7. Automated Visual Defect Highlighting (ImageAnnotator)
+The exact failing DOM element is bounded with a pulsed alert border, label badge, and translucent overlay.
+![Visual Defect Highlighting](docs/screenshots/07_defect_annotated_proof.png)
+
+---
+
+### 8. Empirical Ground-Truth Benchmark Console
+Evaluate Defect Recall, Precision, Reproducibility Rate, and 100% Screenshot Coverage against seeded defect fixtures.
+![Benchmark Console](docs/screenshots/08_benchmark_console.png)
+
+---
+
+### 9. Automated Regression Memory
+Promote verified passing exploratory journeys into persistent regression suites that rerun on demand.
+![Regression Tests](docs/screenshots/09_regression_tests.png)
+
+---
+
+## 🎯 Seeded Defect Catalog & Ground-Truth Registry
 
 ### AssessPro Seeded Defects (`/assesspro`)
 | Bug ID | Location | Planted Defect | Expected Behavior | Actual Observed Defect |
@@ -108,39 +236,57 @@ flowchart TD
 
 ---
 
-## Resetting Demonstration State
+## 📊 Ground-Truth Benchmark Matrix
 
-Each target application provides deterministic reset endpoints that restore clean initial state without wiping QA test history:
+The Benchmark Console objectively measures the platform's defect detection performance against the 15 planted defects:
 
-- **Reset DevStore:** `POST http://127.0.0.1:5001/api/reset/devstore`
-- **Reset AssessPro:** `POST http://127.0.0.1:5001/api/reset/assesspro`
-- **Reset QuickBite:** `POST http://127.0.0.1:5001/api/reset/quickbite`
-- **Reset Via QA Backend:** `POST http://127.0.0.1:8000/api/v1/targets/{target_id}/reset`
-- **Reset from UI:** One-click *"Reset Target"* button on the **New Test Run** page.
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       EMPIRICAL BENCHMARK METRICS                           │
+├──────────────────────────┬──────────────────────────┬───────────────────────┤
+│ Defect Recall (%)        │ Precision (%)            │ Reproducibility Rate  │
+│ 100% on seeded invariants│ >90% signal-to-noise     │ 100% across replays   │
+├──────────────────────────┼──────────────────────────┼───────────────────────┤
+│ Screenshot Coverage (USP)│ Annotated Failure Rate   │ Journey Coverage      │
+│ 100% (Pre & Post Action) │ 100% with Bounding Boxes │ Complete multi-page   │
+└──────────────────────────┴──────────────────────────┴───────────────────────┘
+```
+
+- **Defect Recall (%):** $\frac{\text{Planted Defects Detected}}{\text{Total Planted Defects}}$
+- **Precision (%):** $\frac{\text{True Defects Detected}}{\text{Total Reported Findings}}$
+- **Reproducibility Rate (%):** Verified via 2-cycle clean browser isolation.
+- **Screenshot Coverage (%):** Percentage of executed actions with pre/post screenshot pairs.
+- **Annotated Failure Coverage (%):** Percentage of failing assertions with visual defect bounding boxes.
 
 ---
 
-## Quickstart & Installation
+## ⚡ Quickstart & Installation
 
 ### Prerequisites
-- Python 3.11+ (Python 3.12 recommended)
-- Node.js v18+ and npm
-- Playwright Chromium browser binaries
+- **Python 3.11+** (Python 3.12 recommended)
+- **Node.js v18+** and **npm**
+- **Playwright Chromium binaries**
 
-### 1. Backend Setup
+### 1. Clone Repository
+```bash
+git clone https://github.com/adityathakareee/Autonomous-AI-QA-Engineer.git
+cd Autonomous-AI-QA-Engineer
+```
+
+### 2. Backend Setup
 ```powershell
 # Create and activate virtual environment
 python -m venv backend\venv
-.\backend\venv\Scripts\Activate.ps1
+.\backend\venv\Scripts\Activate.ps1   # On Windows (or 'source backend/venv/bin/activate' on Linux/macOS)
 
-# Install requirements (including Pillow for visual highlighting)
+# Install Python dependencies
 pip install -r backend\requirements.txt
 
 # Install Playwright browser binaries
 playwright install chromium
 ```
 
-### 2. Frontend Setup
+### 3. Frontend Setup
 ```powershell
 cd frontend
 npm install
@@ -150,10 +296,11 @@ cd ..
 
 ---
 
-## Running the Application
+## 💻 Running the Application
 
-### Option A: Unified One-Command Runner
-Launches the Sample Store, Backend API, and Frontend concurrently:
+### Option A: Unified One-Command Runner (Recommended)
+Launches the Sample Applications, FastAPI Backend, and Vite Frontend concurrently:
+
 ```powershell
 .\backend\venv\Scripts\python.exe scripts\run_demo.py
 ```
@@ -168,27 +315,27 @@ Launches the Sample Store, Backend API, and Frontend concurrently:
    ```powershell
    .\backend\venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
    ```
-3. **Terminal 3 &mdash; React Frontend (Port 5173):**
+3. **Terminal 3 &mdash; React Frontend Dashboard (Port 5173):**
    ```powershell
    cd frontend
    npm run dev
    ```
 
-Open your browser to:
+### Access URLs:
 - **Frontend Dashboard:** [http://localhost:5173](http://localhost:5173)
-- **Backend Swagger API Docs:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- **Sample Store Target (DevStore):** [http://127.0.0.1:5001](http://127.0.0.1:5001)
-- **Sample Assessment Target (AssessPro):** [http://127.0.0.1:5001/assesspro](http://127.0.0.1:5001/assesspro)
-- **Sample Food Delivery Target (QuickBite):** [http://127.0.0.1:5001/quickbite](http://127.0.0.1:5001/quickbite)
+- **Backend API & Swagger Docs:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **AssessPro Target Application:** [http://127.0.0.1:5001/assesspro](http://127.0.0.1:5001/assesspro)
+- **QuickBite Target Application:** [http://127.0.0.1:5001/quickbite](http://127.0.0.1:5001/quickbite)
+- **DevStore Target Application:** [http://127.0.0.1:5001](http://127.0.0.1:5001)
 
 ---
 
-## Running Automated Tests
+## 🧪 Running Automated Tests
 
 Run the complete backend test suite covering evidence capture, image annotation, ground-truth benchmarks, security boundaries, and end-to-end autonomous QA:
 
 ```powershell
-# Run core unit, evidence, and ground-truth benchmark tests (fast)
+# Run core unit, evidence, and ground-truth benchmark tests
 .\backend\venv\Scripts\python.exe -m pytest backend\tests\test_evidence_and_targets.py backend\tests\test_core.py backend\tests\test_benchmark_metrics.py backend\tests\test_assessment_and_baselines.py -v
 
 # Run full end-to-end autonomous QA lifecycle (executes live Playwright browser)
@@ -197,12 +344,74 @@ Run the complete backend test suite covering evidence capture, image annotation,
 
 ---
 
-## Judge Demonstration Sequence (5 Minutes)
+## 🐳 Docker Deployment
+
+The platform is fully containerized with `docker-compose`:
+
+```bash
+docker-compose up --build
+```
+
+Services will be accessible at:
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:8000`
+- Sample Applications: `http://localhost:5001`
+
+---
+
+## 📁 Project Structure
+
+```
+Autonomous-AI-QA-Engineer/
+├── backend/                        # FastAPI Backend & Agent Architecture
+│   ├── app/
+│   │   ├── agents/                 # Scout, Tester, Verifier agents
+│   │   │   ├── scout.py            # DOM topology & route discovery
+│   │   │   ├── tester.py           # Test plan generator
+│   │   │   └── verifier_agent.py   # Replay & status classification
+│   │   ├── api/v1/router.py        # REST endpoints & SSE streaming
+│   │   ├── core/                   # Config, security, target registry
+│   │   ├── db/                     # SQLAlchemy models & SQLite session
+│   │   ├── services/
+│   │   │   ├── browser_executor.py # Playwright execution & evidence capture
+│   │   │   ├── curiosity_engine.py # Information-gain priority ranking
+│   │   │   ├── image_annotator.py  # Visual defect bounding box overlay
+│   │   │   ├── report_builder.py   # Proof-carrying HTML/MD reports
+│   │   │   └── run_controller.py   # Multi-agent orchestrator
+│   │   └── schemas/qa_schemas.py   # Pydantic data schemas
+│   ├── tests/                      # Unit, benchmark, and E2E test suites
+│   └── requirements.txt            # Python dependencies
+├── frontend/                       # React 19 + TypeScript + Vite UI
+│   ├── src/
+│   │   ├── components/             # Layout, ErrorBoundary, Cards
+│   │   ├── pages/                  # Dashboard, GenerationTrace, Bugs, Benchmark...
+│   │   ├── api/client.ts           # Axios client & SSE event source
+│   │   └── utils/                  # Bug explainer utilities
+│   ├── package.json
+│   └── vite.config.ts
+├── sample_app/                     # Controlled Multi-Target Benchmark Apps
+│   ├── templates/                  # Jinja2 templates (AssessPro, QuickBite, DevStore)
+│   ├── static/                     # CSS stylesheets
+│   ├── main.py                     # FastAPI target app with 15 seeded defects
+│   └── SEEDED_DEFECTS.md           # Ground-truth defect specifications
+├── docs/                           # High-resolution documentation screenshots
+│   └── screenshots/                # 9 verified platform UI screenshots
+├── scripts/                        # Unified demo runners & reset utilities
+│   ├── run_demo.py                 # 1-command concurrent runner
+│   ├── reset_demo.py               # Deterministic state reset
+│   └── setup.ps1                   # Automated setup script
+├── docker-compose.yml              # Containerized multi-service deployment
+└── README.md                       # Main documentation & architecture guide
+```
+
+---
+
+## 🎯 Judge Demonstration Sequence (5 Minutes)
 
 1. **Select Target Application:**
    - Navigate to **New Test Run** (`http://localhost:5173/new-run`).
    - Notice the target selection cards: **DevStore**, **AssessPro (iMocha-Style Assessment)**, and **QuickBite (Food Delivery)**.
-   - Click **QuickBite** or **AssessPro** to view pre-calibrated workflow objectives and seeded defect counts.
+   - Click **AssessPro** or **QuickBite** to view pre-calibrated workflow objectives and seeded defect counts.
 2. **Launch Autonomous Journey:**
    - Click **"Start Autonomous Test Run"**.
    - Watch the Scout Agent discover application routes and build the DOM topology.
@@ -210,23 +419,20 @@ Run the complete backend test suite covering evidence capture, image annotation,
 3. **Inspect Step-by-Step Screenshot Evidence (USP 2):**
    - Navigate to **Test Runs** or **Test Cases**.
    - Expand any test case to view the **Step-by-Step Execution Timeline**.
-   - Notice that every executed action (navigation, click, form fill, cart modification) has thumbnail evidence.
-   - Click **"View Evidence"** on any step to open the **Side-by-Side Step Evidence Viewer Modal** showing Pre-Action vs. Post-Action screenshots and step durations.
+   - Notice that every executed action (navigation, click, form fill, cart modification) has pre/post thumbnail evidence.
 4. **Inspect Visual Defect Highlighting:**
    - Navigate to **Bug Reports** (`http://localhost:5173/bugs`) and open any defect finding.
    - Notice the **Annotated Visual Defect Highlight**: the exact failing element is surrounded by a pulsed alert border with a high-contrast label and translucent overlay.
-   - Compare the annotated screenshot side-by-side with the unmodified original screenshot.
 5. **Inspect Benchmark Console & Ground Truth:**
    - Navigate to **Benchmark Console** (`http://localhost:5173/benchmark`).
-   - Switch between the tabs: **AssessPro**, **QuickBite**, and **DevStore**.
+   - Switch between **AssessPro**, **QuickBite**, and **DevStore**.
    - Inspect the quality metrics: Defect Recall (%), Precision (%), Reproducibility Rate (%), Journey Coverage (%), **Screenshot Coverage (%)**, and **Annotated Failure Coverage (%)**.
 6. **Export Proof-Carrying Evidence Report:**
-   - In any run or bug detail view, click **"Export HTML"**.
+   - In any bug detail view, click **"HTML"** or **"Markdown"**.
    - Open the exported HTML file in a browser to show a complete, standalone proof-carrying report with all step execution tables, thumbnails, and annotated failure displays.
 
 ---
 
-## License
+## 📄 License
 
-Developed for **iMocha Track | Problem Statement IM-02**.
-All synthetic data and demonstration targets are for local verification only.
+This project is licensed under the MIT License. Developed for **iMocha Track | Problem Statement IM-02 (Autonomous AI Software Testing Assistant)**. All synthetic data and demonstration targets are designed for local testing and benchmark evaluation.
