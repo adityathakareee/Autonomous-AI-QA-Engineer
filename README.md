@@ -43,7 +43,6 @@
 - [Running Automated Tests](#-running-automated-tests)
 - [Docker Deployment](#-docker-deployment)
 - [Project Structure](#-project-structure)
-- [Judge Demonstration Guide](#-judge-demonstration-sequence-5-minutes)
 - [License](#-license)
 
 ---
@@ -403,33 +402,6 @@ Autonomous-AI-QA-Engineer/
 ├── docker-compose.yml              # Containerized multi-service deployment
 └── README.md                       # Main documentation & architecture guide
 ```
-
----
-
-## 🎯 Judge Demonstration Sequence (5 Minutes)
-
-1. **Select Target Application:**
-   - Navigate to **New Test Run** (`http://localhost:5173/new-run`).
-   - Notice the target selection cards: **DevStore**, **AssessPro (iMocha-Style Assessment)**, and **QuickBite (Food Delivery)**.
-   - Click **AssessPro** or **QuickBite** to view pre-calibrated workflow objectives and seeded defect counts.
-2. **Launch Autonomous Journey:**
-   - Click **"Start Autonomous Test Run"**.
-   - Watch the Scout Agent discover application routes and build the DOM topology.
-   - Observe the Tester Agent generate multi-step journeys prioritized by the Curiosity Engine.
-3. **Inspect Step-by-Step Screenshot Evidence (USP 2):**
-   - Navigate to **Test Runs** or **Test Cases**.
-   - Expand any test case to view the **Step-by-Step Execution Timeline**.
-   - Notice that every executed action (navigation, click, form fill, cart modification) has pre/post thumbnail evidence.
-4. **Inspect Visual Defect Highlighting:**
-   - Navigate to **Bug Reports** (`http://localhost:5173/bugs`) and open any defect finding.
-   - Notice the **Annotated Visual Defect Highlight**: the exact failing element is surrounded by a pulsed alert border with a high-contrast label and translucent overlay.
-5. **Inspect Benchmark Console & Ground Truth:**
-   - Navigate to **Benchmark Console** (`http://localhost:5173/benchmark`).
-   - Switch between **AssessPro**, **QuickBite**, and **DevStore**.
-   - Inspect the quality metrics: Defect Recall (%), Precision (%), Reproducibility Rate (%), Journey Coverage (%), **Screenshot Coverage (%)**, and **Annotated Failure Coverage (%)**.
-6. **Export Proof-Carrying Evidence Report:**
-   - In any bug detail view, click **"HTML"** or **"Markdown"**.
-   - Open the exported HTML file in a browser to show a complete, standalone proof-carrying report with all step execution tables, thumbnails, and annotated failure displays.
 
 ---
 
